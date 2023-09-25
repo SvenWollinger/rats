@@ -1,0 +1,36 @@
+@font-face {
+    font-family: "Roboto Mono";
+    font-display: swap;
+    src: url("/fonts/RobotoMono-Medium.ttf") format("truetype");
+}
+
+body {
+    font-family: "Roboto Mono", monospace;
+    margin: 10px 0 0;
+    padding: 0;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    min-width: 100vw;
+    flex-direction: column;
+}
+
+@media (prefers-color-scheme: light) {
+    footer a {
+        color: black;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    footer a {
+        color: white;
+    }
+
+    body {
+        background: #202124;
+        color: white;
+    }
+}
+
+
+
