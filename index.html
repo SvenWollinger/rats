@@ -7,7 +7,21 @@
     <body>
         <h1 align="center">My Rattos</h1>
         <div id="content">
+            <div id="selectedRatArea">
+                <p align="center"><a href="/">...</a></p>
+                <div>
+                    <div style="float:left;">
+                        <h2 align="center" id="selectedRatName">Loading...</h2>
+                        <h3 align="center">Born: <span id="selectedRatBorn">Loading...</span></h3>
+                        <h3 align="center" id="selectedRatRBParent">Rainbow Bridge: <span id="selectedRatRB">Loading...</span></h3>
+                    </div>
+                    <div style="float:left;">
+                        <img id="selectedRatBigPic" style="width:50vh">
+                    </div>
 
+
+                </div>
+            </div>
         </div>
     </body>
     <script src="/js/ratloader.js"></script>
@@ -50,8 +64,17 @@
             content.appendChild(ratsArea)
         } else {
             if(validRats.includes(selectedRat)) {
-                document.getElementById("content").innerHTML = `<a href='/'>back</a><p>${selectedRat}</p>`
-
+                loadRat(selectedRat, (ratData) => {
+                    document.getElementById("selectedRatName").innerText = ratData["name"]
+                    document.getElementById("selectedRatArea").style.display = "block"
+                    document.getElementById("selectedRatBigPic").src = ratData["bigPic"]
+                    document.getElementById("selectedRatBorn").innerText = ratData["born"]
+                    let rbData = ratData["rainbow_bridge"]
+                    if(rbData != null)
+                        document.getElementById("selectedRatRB").innerText = rbData
+                    else
+                        document.getElementById("selectedRatRBParent").style.display = "none"
+                })
             } else {
                 document.getElementById("content").innerHTML =
                     "<div align='center'><p>Rat not found!</p>" +

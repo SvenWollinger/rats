@@ -48,6 +48,9 @@ body {
     }
 }
 
+#selectedRatArea {
+    display:none;
+}
 
 
 .card{
