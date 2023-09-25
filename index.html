@@ -6,5 +6,58 @@
     </head>
     <body>
         <h1 align="center">My Rattos</h1>
+        <div id="content">
+
+        </div>
     </body>
+    <script src="/js/ratloader.js"></script>
+    <script>
+        let params = new URLSearchParams(window.location.search)
+        let validRats = ["miley", "hornet", "zelda"]
+        let selectedRat = params.get("rat")
+        let content = document.getElementById("content")
+        if(selectedRat == null) {
+            content.innerHTML = `<h1 align="center">All Rattos:</h1>`
+            let ratsArea = document.createElement("div")
+            validRats.forEach((rat) => {
+                loadRat(rat, (ratData) => {
+                    let ratArea = document.createElement("div")
+                    ratArea.className = "ratPreview"
+
+                    let card = document.createElement("div")
+                    card.className = "card"
+                    let cardContent = document.createElement("div")
+                    card.appendChild(cardContent)
+
+                    let ratThumbnail = document.createElement("img")
+                    ratThumbnail.src = ratData["thumbnail"]
+                    ratThumbnail.className = "ratThumbnail"
+                    ratThumbnail.onclick = () => {
+                        window.location = "/?rat=" + rat
+                    }
+                    cardContent.appendChild(ratThumbnail)
+
+                    let ratTitle = document.createElement("h1")
+                    ratTitle.innerHTML = ratData["name"]
+                    ratTitle.align = "center"
+                    ratTitle.style.color = "black"
+                    cardContent.appendChild(ratTitle)
+
+                    ratArea.appendChild(card)
+                    ratsArea.appendChild(ratArea)
+                })
+            })
+            content.appendChild(ratsArea)
+        } else {
+            if(validRats.includes(selectedRat)) {
+                document.getElementById("content").innerHTML = `<a href='/'>back</a><p>${selectedRat}</p>`
+
+            } else {
+                document.getElementById("content").innerHTML =
+                    "<div align='center'><p>Rat not found!</p>" +
+                    "<a href='/'>Go back?</a></div>"
+            }
+        }
+        loadRat("miley")
+    </script>
 </html>
