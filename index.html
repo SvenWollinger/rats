@@ -7,19 +7,19 @@
     <body>
         <h1 align="center">My Rattos</h1>
         <div id="content">
-            <div id="selectedRatArea">
-                <p align="center"><a href="/">...</a></p>
-                <div>
-                    <div style="float:left;">
-                        <h2 align="center" id="selectedRatName">Loading...</h2>
-                        <h3 align="center">Born: <span id="selectedRatBorn">Loading...</span></h3>
-                        <h3 align="center" id="selectedRatRBParent">Rainbow Bridge: <span id="selectedRatRB">Loading...</span></h3>
+            <div id="selectedRatArea" style="width:80%;">
+                <p><a href="/">...</a></p>
+                <div class="card">
+                    <div class="cardInner">
+                        <div style="float:left;">
+                            <h2 align="center" id="selectedRatName" style="color:black;">Loading...</h2>
+                            <h3 align="center"  style="color:black;">Born: <span id="selectedRatBorn"  style="color:black;">Loading...</span></h3>
+                            <h3 align="center" id="selectedRatRBParent"  style="color:black;">Rainbow Bridge: <span id="selectedRatRB">Loading...</span></h3>
+                        </div>
+                        <div style="float:left;">
+                            <img id="selectedRatBigPic" style="width:50vh">
+                        </div>
                     </div>
-                    <div style="float:left;">
-                        <img id="selectedRatBigPic" style="width:50vh">
-                    </div>
-
-
                 </div>
             </div>
         </div>
@@ -41,6 +41,7 @@
                     let card = document.createElement("div")
                     card.className = "card"
                     let cardContent = document.createElement("div")
+                    cardContent.className = "cardInner"
                     card.appendChild(cardContent)
 
                     let ratThumbnail = document.createElement("img")
