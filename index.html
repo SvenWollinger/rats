@@ -26,62 +26,74 @@
     </body>
     <script src="/js/ratloader.js"></script>
     <script>
-        let params = new URLSearchParams(window.location.search)
-        let validRats = ["miley", "hornet", "zelda", "mochi", "crumb", "cream"]
-        let selectedRat = params.get("rat")
-        let content = document.getElementById("content")
-        if(selectedRat == null) {
-            content.innerHTML = `<h1 align="center">All Rattos:</h1>`
-            let ratsArea = document.createElement("div")
-            validRats.forEach((rat) => {
-                loadRat(rat, (ratData) => {
-                    let ratArea = document.createElement("div")
-                    ratArea.className = "ratPreview"
-
-                    let card = document.createElement("div")
-                    card.className = "card"
-                    let cardContent = document.createElement("div")
-                    cardContent.className = "cardInner"
-                    card.appendChild(cardContent)
-
-                    let ratThumbnail = document.createElement("img")
-                    ratThumbnail.src = ratData["thumbnail"]
-                    ratThumbnail.className = "ratThumbnail"
-                    ratThumbnail.onclick = () => {
-                        window.location = "/?rat=" + rat
-                    }
-                    cardContent.appendChild(ratThumbnail)
-
-                    let ratTitle = document.createElement("h1")
-                    ratTitle.innerText = ratData["name"]
-                    if(ratData["rainbow_bridge"] != null) ratTitle.innerText += " †"
-                    ratTitle.align = "center"
-                    ratTitle.style.color = "black"
-                    cardContent.appendChild(ratTitle)
-
-                    ratArea.appendChild(card)
-                    ratsArea.appendChild(ratArea)
-                })
-            })
-            content.appendChild(ratsArea)
-        } else {
-            if(validRats.includes(selectedRat)) {
-                loadRat(selectedRat, (ratData) => {
-                    document.getElementById("selectedRatName").innerText = ratData["name"]
-                    document.getElementById("selectedRatArea").style.display = "block"
-                    document.getElementById("selectedRatBigPic").src = ratData["bigPic"]
-                    document.getElementById("selectedRatBorn").innerText = ratData["born"]
-                    let rbData = ratData["rainbow_bridge"]
-                    if(rbData != null)
-                        document.getElementById("selectedRatRB").innerText = rbData
-                    else
-                        document.getElementById("selectedRatRBParent").style.display = "none"
-                })
-            } else {
-                document.getElementById("content").innerHTML =
-                    "<div align='center'><p>Rat not found!</p>" +
-                    "<a href='/'>Go back?</a></div>"
-            }
+        class Config {
+            rats
         }
+
+        get("/json/config.json", (json) => {
+            let config = Object.assign(new Config(), JSON.parse(json))
+            console.log("Config loaded:")
+            console.log(config)
+
+            let params = new URLSearchParams(window.location.search)
+            let selectedRat = params.get("rat")
+            let content = document.getElementById("content")
+            if(selectedRat == null) {
+                content.innerHTML = `<h1 align="center">All Rattos:</h1>`
+                let ratsArea = document.createElement("div")
+                config.rats.forEach((id) => {
+                    loadRat(id, (rat) => {
+                        let ratArea = document.createElement("div")
+                        ratArea.className = "ratPreview"
+
+                        let card = document.createElement("div")
+                        card.className = "card"
+                        let cardContent = document.createElement("div")
+                        cardContent.className = "cardInner"
+                        card.appendChild(cardContent)
+
+                        let ratThumbnail = document.createElement("img")
+                        ratThumbnail.src = rat.thumbnail
+                        ratThumbnail.className = "ratThumbnail"
+                        ratThumbnail.onclick = () => {
+                            window.location = "/?rat=" + id
+                        }
+                        cardContent.appendChild(ratThumbnail)
+
+                        let ratTitle = document.createElement("h1")
+                        ratTitle.innerText = rat.name
+                        if(rat.passed != null) ratTitle.innerText += " †"
+                        ratTitle.align = "center"
+                        ratTitle.style.color = "black"
+                        cardContent.appendChild(ratTitle)
+
+                        ratArea.appendChild(card)
+                        ratsArea.appendChild(ratArea)
+                    })
+                })
+                content.appendChild(ratsArea)
+            } else {
+                if(config.rats.includes(selectedRat)) {
+                    loadRat(selectedRat, (rat) => {
+                        document.getElementById("selectedRatName").innerText = rat.name
+                        document.getElementById("selectedRatArea").style.display = "block"
+                        document.getElementById("selectedRatBigPic").src = rat.bigPic
+                        document.getElementById("selectedRatBorn").innerText = rat.born
+                        if(rat.passed != null)
+                            document.getElementById("selectedRatRB").innerText = rat.passed
+                        else
+                            document.getElementById("selectedRatRBParent").style.display = "none"
+                    })
+                } else {
+                    document.getElementById("content").innerHTML =
+                        "<div align='center'><p>Rat not found!</p>" +
+                        "<a href='/'>Go back?</a></div>"
+                }
+            }
+        })
+
+
+
+
     </script>
 </html>
