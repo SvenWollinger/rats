@@ -8,8 +8,8 @@
         <h1 style="text-align: center;">My Rattos</h1>
         <div id="content">
             <div id="selectedRatArea" style="width:100%;">
-                <p><a href="/">...</a></p>
                 <div class="card">
+                    <p><a href="/" style="color:black;"><img src="/img/home.svg" style="width:5vh;position:absolute;" alt="home"></a></p>
                     <div class="cardInner">
                         <div style="float:left;">
                             <h2 class="ratAboutInfoHeading" id="selectedRatName">Loading...</h2>
@@ -74,7 +74,7 @@
                 if(config.rats.includes(selectedRat)) {
                     loadRat(selectedRat, (rat) => {
                         document.getElementById("selectedRatName").innerText = rat.name
-                        document.getElementById("selectedRatArea").style.display = "block"
+                        document.getElementById("selectedRatArea").style.display = "flex"
                         document.getElementById("selectedRatBigPic").src = rat.bigPic
                         document.getElementById("selectedRatBorn").innerText = rat.born
                         if(rat.passed != null)
