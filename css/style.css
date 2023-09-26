@@ -34,6 +34,12 @@ body {
     }
 }
 
+#content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 @media (prefers-color-scheme: dark) {
     footer a {
         color: white;

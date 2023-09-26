@@ -7,7 +7,7 @@
     <body>
         <h1 style="text-align: center;">My Rattos</h1>
         <div id="content">
-            <div id="selectedRatArea" style="width:80%;">
+            <div id="selectedRatArea" style="width:100%;">
                 <p><a href="/">...</a></p>
                 <div class="card">
                     <div class="cardInner">
@@ -39,8 +39,7 @@
             let selectedRat = params.get("rat")
             let content = document.getElementById("content")
             if(selectedRat == null) {
-                content.innerHTML = `<h1 style="text-align:center">All Rattos:</h1>`
-                let ratsArea = document.createElement("div")
+                //content.innerHTML = `<h1 style="text-align:center">All Rattos:</h1>`
                 config.rats.forEach((id) => {
                     loadRat(id, (rat) => {
                         let ratArea = document.createElement("div")
@@ -68,7 +67,7 @@
                         cardContent.appendChild(ratTitle)
 
                         ratArea.appendChild(card)
-                        ratsArea.appendChild(ratArea)
+                        content.appendChild(ratArea)
                     })
                 })
                 content.appendChild(ratsArea)
