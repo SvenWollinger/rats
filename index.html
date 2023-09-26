@@ -53,7 +53,8 @@
                     cardContent.appendChild(ratThumbnail)
 
                     let ratTitle = document.createElement("h1")
-                    ratTitle.innerHTML = ratData["name"]
+                    ratTitle.innerText = ratData["name"]
+                    if(ratData["rainbow_bridge"] != null) ratTitle.innerText += " †"
                     ratTitle.align = "center"
                     ratTitle.style.color = "black"
                     cardContent.appendChild(ratTitle)
