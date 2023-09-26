@@ -39,7 +39,7 @@
             let selectedRat = params.get("rat")
             let content = document.getElementById("content")
             if(selectedRat == null) {
-                //content.innerHTML = `<h1 style="text-align:center">All Rattos:</h1>`
+                //content.innerHTML = `<h1 style="text-align:center;width:100%;">All Rattos:</h1>`
                 config.rats.forEach((id) => {
                     loadRat(id, (rat) => {
                         let ratArea = document.createElement("div")
@@ -70,7 +70,6 @@
                         content.appendChild(ratArea)
                     })
                 })
-                content.appendChild(ratsArea)
             } else {
                 if(config.rats.includes(selectedRat)) {
                     loadRat(selectedRat, (rat) => {
