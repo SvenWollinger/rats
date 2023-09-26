@@ -42,9 +42,6 @@
                 //content.innerHTML = `<h1 style="text-align:center;width:100%;">All Rattos:</h1>`
                 config.rats.forEach((id) => {
                     loadRat(id, (rat) => {
-                        let ratArea = document.createElement("div")
-                        ratArea.className = "ratPreview"
-
                         let card = document.createElement("div")
                         card.className = "card"
                         let cardContent = document.createElement("div")
@@ -66,8 +63,7 @@
                         ratTitle.style.color = "black"
                         cardContent.appendChild(ratTitle)
 
-                        ratArea.appendChild(card)
-                        content.appendChild(ratArea)
+                        content.appendChild(card)
                     })
                 })
             } else {

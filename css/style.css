@@ -15,12 +15,6 @@ body {
     flex-direction: column;
 }
 
-.ratPreview {
-    float: left;
-    margin:10px;
-    padding: 10px;
-}
-
 .ratThumbnail {
     width: 40vh;
     height: 40vh;
