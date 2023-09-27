@@ -6,7 +6,9 @@
     </head>
     <body>
         <div id="gallery">
-
+            <div style="width:100%;background-color:red;">
+                <img class="pointer" onclick="closeGallery()" src="/img/close.svg" alt="Close Gallery">
+            </div>
         </div>
         <h1 style="text-align: center;">My Rattos</h1>
         <div id="content">
@@ -18,6 +20,7 @@
                             <h2 class="ratAboutInfoHeading" id="selectedRatName">Loading...</h2>
                             <h3 class="ratAboutInfoHeading">Born: <span id="selectedRatBorn">Loading...</span></h3>
                             <h3 class="ratAboutInfoHeading" id="selectedRatRBParent">Rainbow Bridge: <span id="selectedRatRB">Loading...</span></h3>
+                            <button onclick="openGallery()">Test</button>
                         </div>
                         <div style="float:left;">
                             <img id="selectedRatBigPic" style="width:50vh" alt="Rat Big Pic" src="">
@@ -33,12 +36,38 @@
             rats
         }
 
+        function openGallery() {
+            setSearchParam("gallery", "img/ph1.png")
+            document.getElementById("gallery").style.display = "block"
+        }
+
+        function closeGallery() {
+            clearSearchParam("gallery")
+            document.getElementById("gallery").style.display = "none"
+        }
+
+        function setSearchParam(key, value) {
+            let params = new URLSearchParams(window.location.search)
+            params.set(key, value)
+            window.history.pushState("", "", "?" + params.toString())
+        }
+
+        function clearSearchParam(key) {
+            let params = new URLSearchParams(window.location.search)
+            params.delete(key)
+            window.history.pushState("", "", "?" + params.toString())
+        }
+
+        let params = new URLSearchParams(window.location.search)
+        if(params.get("gallery") != null) {
+            document.getElementById("gallery").style.display = "block"
+        }
+
         get("/json/config.json", (json) => {
             let config = Object.assign(new Config(), JSON.parse(json))
             console.log("Config loaded:")
             console.log(config)
 
-            let params = new URLSearchParams(window.location.search)
             let selectedRat = params.get("rat")
             let content = document.getElementById("content")
             if(selectedRat == null) {
