@@ -6,13 +6,27 @@
     </head>
     <body>
         <div id="gallery">
-            <div style="width:100%;background-color:red;">
-                <img class="pointer" onclick="closeGallery()" src="/img/close.svg" alt="Close Gallery">
+            <div style="display:flex;justify-content: center;flex-wrap: wrap;">
+                <div id="galleryLeft" class="pointer" style="width:100px;display:flex;justify-content: center;flex-wrap: wrap;">
+                    <img style="width:100%;" src="/img/left.svg" alt="Gallery Left">
+                </div>
+                <div style="">
+                    <div style="width:100%;">
+                        <img style="" class="pointer" onclick="closeGallery()" src="/img/close.svg" alt="Close Gallery">
+                    </div>
+                    <img alt="Gallery Image" id="galleryImage" src="">
+                </div>
+                <div id="galleryRight" class="pointer" style="width:100px;display:flex;justify-content: center;flex-wrap: wrap;">
+                    <img style="width:100%;" src="/img/right.svg" alt="Gallery Right">
+                </div>
             </div>
         </div>
         <h1 style="text-align: center;">My Rattos</h1>
         <div id="content">
             <div id="selectedRatArea" style="width:100%;">
+                <div id="selectedRatGallery">
+
+                </div>
                 <div class="card">
                     <p><a href="/" style="color:black;"><img src="/img/home.svg" style="width:5vh;position:absolute;" alt="home"></a></p>
                     <div class="cardInner">
@@ -20,7 +34,6 @@
                             <h2 class="ratAboutInfoHeading" id="selectedRatName">Loading...</h2>
                             <h3 class="ratAboutInfoHeading">Born: <span id="selectedRatBorn">Loading...</span></h3>
                             <h3 class="ratAboutInfoHeading" id="selectedRatRBParent">Rainbow Bridge: <span id="selectedRatRB">Loading...</span></h3>
-                            <button onclick="openGallery()">Test</button>
                         </div>
                         <div style="float:left;">
                             <img id="selectedRatBigPic" style="width:50vh" alt="Rat Big Pic" src="">
@@ -36,9 +49,11 @@
             rats
         }
 
-        function openGallery() {
-            setSearchParam("gallery", "img/ph1.png")
+        function openGallery(image) {
+            setSearchParam("gallery", image)
             document.getElementById("gallery").style.display = "block"
+            document.getElementById("galleryImage").src = image
+
         }
 
         function closeGallery() {
@@ -58,9 +73,8 @@
             window.history.pushState("", "", "?" + params.toString())
         }
 
-        let params = new URLSearchParams(window.location.search)
-        if(params.get("gallery") != null) {
-            document.getElementById("gallery").style.display = "block"
+        function params() {
+            return new URLSearchParams(window.location.search)
         }
 
         get("/json/config.json", (json) => {
@@ -68,7 +82,7 @@
             console.log("Config loaded:")
             console.log(config)
 
-            let selectedRat = params.get("rat")
+            let selectedRat = params().get("rat")
             let content = document.getElementById("content")
             if(selectedRat == null) {
                 //content.innerHTML = `<h1 style="text-align:center;width:100%;">All Rattos:</h1>`
@@ -101,6 +115,37 @@
             } else {
                 if(config.rats.includes(selectedRat)) {
                     loadRat(selectedRat, (rat) => {
+                        if(params().get("gallery") != null) {
+                            openGallery(params().get("gallery"))
+                        }
+
+                        document.getElementById("galleryRight").onclick = () => {
+                            let nextIndex = rat.images.indexOf(params().get("gallery")) + 1;
+                            if(nextIndex >= rat.images.length) nextIndex = 0
+
+                            setSearchParam("gallery", rat.images[nextIndex])
+                            openGallery(rat.images[nextIndex])
+                        }
+
+                        document.getElementById("galleryLeft").onclick = () => {
+                            let nextIndex = rat.images.indexOf(params().get("gallery")) - 1;
+                            if(nextIndex < 0) nextIndex = rat.images.length - 1
+
+                            setSearchParam("gallery", rat.images[nextIndex])
+                            openGallery(rat.images[nextIndex])                        }
+
+                        let gallery = document.getElementById("selectedRatGallery")
+                        rat.images.forEach((image) => {
+                            console.log(image)
+                            let galleryThumb = document.createElement("img")
+                            galleryThumb.src = image
+                            galleryThumb.style.width = "5vw"
+                            galleryThumb.className = "pointer"
+                            galleryThumb.onclick = () => {
+                                openGallery(image)
+                            }
+                            gallery.appendChild(galleryThumb)
+                        })
                         document.getElementById("selectedRatName").innerText = rat.name
                         document.getElementById("selectedRatArea").style.display = "flex"
                         document.getElementById("selectedRatBigPic").src = rat.bigPic
