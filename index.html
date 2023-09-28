@@ -13,9 +13,12 @@
                 </div>
                 <div>
                     <div style="width:100%;">
-                        <img style="" class="pointer" onclick="closeGallery()" src="/img/close.svg" alt="Close Gallery">
+                        <img style="height:5vh;" class="pointer" onclick="closeGallery()" src="/img/close.svg" alt="Close Gallery">
                     </div>
                     <img alt="Gallery Image" id="galleryImage" src="">
+                    <div style="width:100%;display:flex; justify-content:center;">
+                        <a id="galleryDownloadLink" href="" download><img style="height:5vh;" src="/img/download.svg" alt="Download Image"></a>
+                    </div>
                 </div>
                 <div id="galleryRight" class="pointer galleryNav">
                     <img src="/img/right.svg" alt="Gallery Right">
@@ -56,9 +59,9 @@
 
         function openGallery(image) {
             setSearchParam("gallery", image)
-            document.getElementById("gallery").style.display = "block"
+            document.getElementById("gallery").style.display = "flex"
             document.getElementById("galleryImage").src = image
-
+            document.getElementById("galleryDownloadLink").href = image
         }
 
         function closeGallery() {
@@ -90,7 +93,7 @@
             let selectedRat = params().get("rat")
             let content = document.getElementById("content")
             if(selectedRat == null) {
-                //content.innerHTML = `<h1 style="text-align:center;width:100%;">All Rattos:</h1>`
+                content.innerHTML = `<h1 style="text-align:center;width:100%;">All Rattos:</h1>`
                 config.rats.forEach((id) => {
                     loadRat(id, (rat) => {
                         let card = document.createElement("div")
