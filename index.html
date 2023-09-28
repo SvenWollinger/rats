@@ -7,18 +7,18 @@
     </head>
     <body>
         <div id="gallery" >
-            <div style="display:flex;justify-content: center;flex-wrap: wrap;" id="galleryCloseClick">
-                <div id="galleryLeft" class="pointer" style="width:100px;display:flex;justify-content: center;flex-wrap: wrap;">
-                    <img style="width:100%;" src="/img/left.svg" alt="Gallery Left">
+            <div id="galleryContainer">
+                <div id="galleryLeft" class="pointer galleryNav">
+                    <img src="/img/left.svg" alt="Gallery Left">
                 </div>
-                <div style="">
+                <div>
                     <div style="width:100%;">
                         <img style="" class="pointer" onclick="closeGallery()" src="/img/close.svg" alt="Close Gallery">
                     </div>
                     <img alt="Gallery Image" id="galleryImage" src="">
                 </div>
-                <div id="galleryRight" class="pointer" style="width:100px;display:flex;justify-content: center;flex-wrap: wrap;">
-                    <img style="width:100%;" src="/img/right.svg" alt="Gallery Right">
+                <div id="galleryRight" class="pointer galleryNav">
+                    <img src="/img/right.svg" alt="Gallery Right">
                 </div>
             </div>
         </div>
@@ -50,8 +50,8 @@
             rats
         }
 
-        document.getElementById("galleryCloseClick").onclick = (e1, e2) => {
-            if(e1.target.id === "galleryCloseClick") closeGallery()
+        document.getElementById("galleryContainer").onclick = (e1, e2) => {
+            if(e1.target.id === "galleryContainer") closeGallery()
         }
 
         function openGallery(image) {
@@ -137,7 +137,8 @@
                             if(nextIndex < 0) nextIndex = rat.images.length - 1
 
                             setSearchParam("gallery", rat.images[nextIndex])
-                            openGallery(rat.images[nextIndex])                        }
+                            openGallery(rat.images[nextIndex])
+                        }
 
                         let gallery = document.getElementById("selectedRatGallery")
                         rat.images.forEach((image) => {

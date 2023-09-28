@@ -23,6 +23,23 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+#galleryContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.galleryNav {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.galleryNav img {
+    width:100%;
+}
+
 #galleryImage {
     height:90vh;
 }
