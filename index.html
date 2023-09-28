@@ -9,11 +9,11 @@
         <div id="gallery" >
             <div id="galleryContainer">
                 <div id="galleryLeft" class="pointer galleryNav">
-                    <img src="/img/left.svg" alt="Gallery Left">
+                    <img src="/img/left.svg" alt="Gallery Left" draggable="false">
                 </div>
                 <div>
                     <div style="width:100%;">
-                        <img style="height:5vh;" class="pointer" onclick="closeGallery()" src="/img/close.svg" alt="Close Gallery">
+                        <img draggable="false" style="height:5vh;" class="pointer" onclick="closeGallery()" src="/img/close.svg" alt="Close Gallery">
                     </div>
                     <img alt="Gallery Image" id="galleryImage" src="">
                     <div style="width:100%;display:flex; justify-content:center;">
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div id="galleryRight" class="pointer galleryNav">
-                    <img src="/img/right.svg" alt="Gallery Right">
+                    <img src="/img/right.svg" alt="Gallery Right" draggable="false">
                 </div>
             </div>
         </div>
