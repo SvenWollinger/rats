@@ -99,8 +99,10 @@
             if(selectedRat == null) {
                 content.innerHTML = `<h1 style="text-align:center;width:100%;">All Rattos:</h1>`
                 config.rats.forEach((id) => {
+                    let card = document.createElement("div")
+                    content.appendChild(card)
+
                     loadRat(id, (rat) => {
-                        let card = document.createElement("div")
                         card.className = "card"
                         let cardContent = document.createElement("div")
                         cardContent.className = "cardInner"
@@ -110,7 +112,9 @@
                         ratThumbnail.src = rat.thumbnail
                         ratThumbnail.className = "ratThumbnail"
                         ratThumbnail.onclick = () => {
-                            window.location = "/?rat=" + id
+                            let newParams = params()
+                            newParams.set("rat", id)
+                            window.location.search = newParams.toString()
                         }
                         cardContent.appendChild(ratThumbnail)
 
@@ -121,7 +125,6 @@
                         ratTitle.style.color = "black"
                         cardContent.appendChild(ratTitle)
 
-                        content.appendChild(card)
                     })
                 })
             } else {
