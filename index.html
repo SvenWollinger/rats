@@ -1,12 +1,13 @@
 <html lang="en">
     <head>
+        <link rel="stylesheet" href="css/reset.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="icon" href="img/favicon.webp" />
         <title>rats - wollinger.io</title>
     </head>
     <body>
-        <div id="gallery">
-            <div style="display:flex;justify-content: center;flex-wrap: wrap;">
+        <div id="gallery" >
+            <div style="display:flex;justify-content: center;flex-wrap: wrap;" id="galleryCloseClick">
                 <div id="galleryLeft" class="pointer" style="width:100px;display:flex;justify-content: center;flex-wrap: wrap;">
                     <img style="width:100%;" src="/img/left.svg" alt="Gallery Left">
                 </div>
@@ -21,7 +22,7 @@
                 </div>
             </div>
         </div>
-        <h1 style="text-align: center;">My Rattos</h1>
+        <h1 style="text-align: center;font-size: 15vh;padding-bottom:5vh;">My Rattos</h1>
         <div id="content">
             <div id="selectedRatArea" style="width:100%;">
                 <div id="selectedRatGallery">
@@ -47,6 +48,10 @@
     <script>
         class Config {
             rats
+        }
+
+        document.getElementById("galleryCloseClick").onclick = (e1, e2) => {
+            if(e1.target.id === "galleryCloseClick") closeGallery()
         }
 
         function openGallery(image) {
