@@ -1,5 +1,6 @@
 <html lang="en">
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="css/reset.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="icon" href="img/favicon.webp" />
@@ -25,22 +26,22 @@
                 </div>
             </div>
         </div>
-        <h1 style="text-align: center;font-size: 15vh;padding-bottom:5vh;">My Rattos</h1>
+        <h1 style="text-align: center;">My Rattos</h1>
         <div id="content">
             <div id="selectedRatArea" style="width:100%;">
-                <div id="selectedRatGallery">
 
-                </div>
                 <div class="card">
                     <p><a href="/" style="color:black;"><img src="/img/home.svg" style="width:5vh;position:absolute;" alt="home"></a></p>
                     <div class="cardInner">
-                        <div style="float:left;">
+                        <div style="float:left;width:40%;">
                             <h2 class="ratAboutInfoHeading" id="selectedRatName">Loading...</h2>
                             <h3 class="ratAboutInfoHeading">Born: <span id="selectedRatBorn">Loading...</span></h3>
                             <h3 class="ratAboutInfoHeading" id="selectedRatRBParent">Rainbow Bridge: <span id="selectedRatRB">Loading...</span></h3>
+                            <div id="selectedRatGallery">
+                            </div>
                         </div>
-                        <div style="float:left;">
-                            <img id="selectedRatBigPic" style="width:50vh" alt="Rat Big Pic" src="">
+                        <div style="float:left;width:40%;margin-left:5%;">
+                            <img id="selectedRatBigPic" style="width:100%; max-height:50vh;" alt="Rat Big Pic" src="">
                         </div>
                     </div>
                 </div>
@@ -148,7 +149,9 @@
                             console.log(image)
                             let galleryThumb = document.createElement("img")
                             galleryThumb.src = image
-                            galleryThumb.style.width = "5vw"
+                            galleryThumb.style.maxWidth = "15vw"
+                            galleryThumb.style.maxHeight = "15vh"
+
                             galleryThumb.className = "pointer"
                             galleryThumb.onclick = () => {
                                 openGallery(image)

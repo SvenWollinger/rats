@@ -17,6 +17,7 @@ body {
 #gallery {
     display: none;
     justify-content: center;
+    align-items: center;
     position: absolute;
     z-index: 9999;
     width: 100%;
@@ -35,7 +36,7 @@ body {
 }
 
 .galleryNav {
-    width: 100px;
+    width: 10vw;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -46,7 +47,8 @@ body {
 }
 
 #galleryImage {
-    height:80vh;
+    max-height:80vh;
+    max-width:75vw;
 }
 
 .pointer {
