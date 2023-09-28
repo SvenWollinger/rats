@@ -10,6 +10,21 @@ function clearSearchParam(key) {
     window.history.pushState("", "", "?" + params.toString())
 }
 
+function id(id) {
+    return document.getElementById(id)
+}
+
+function style(id) {
+    return this.id(id).style
+}
+
+function create(type, parent, setup) {
+    let element = document.createElement(type)
+    if(parent != null) parent.appendChild(element)
+    if(setup != null) setup(element)
+    return element
+}
+
 function getParams() {
     return new URLSearchParams(window.location.search)
 }

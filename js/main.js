@@ -11,20 +11,20 @@ class Rat {
     images
 }
 
-document.getElementById("gallery").onclick = (e1, e2) => {
+document.getElementById("gallery").onclick = (e1) => {
     if(e1.target.id === "gallery") closeGallery()
 }
 
 function openGallery(image) {
     setSearchParam("gallery", image)
-    document.getElementById("gallery").style.display = "flex"
-    document.getElementById("galleryImage").src = image
-    document.getElementById("galleryDownloadLink").href = image
+    style("gallery").display = "flex"
+    id("galleryImage").src = image
+    id("galleryDownloadLink").href = image
 }
 
 function closeGallery() {
     clearSearchParam("gallery")
-    document.getElementById("gallery").style.display = "none"
+    style("gallery").display = "none"
 }
 
 function loadRat(rat, onSuccess) {
@@ -40,37 +40,39 @@ get("/json/config.json", (json) => {
     console.log(config)
 
     let selectedRat = getParams().get("rat")
-    let content = document.getElementById("content")
+    let content = id("content")
     if(selectedRat == null) {
         content.innerHTML = `<h1 style="text-align:center;width:100%;">All Rattos:</h1>`
         config.rats.forEach((id) => {
-            let card = document.createElement("div")
-            content.appendChild(card)
-
-            loadRat(id, (rat) => {
+            create("div", content,(card) => {
                 card.className = "card"
-                let cardContent = document.createElement("div")
-                cardContent.className = "cardInner"
-                card.appendChild(cardContent)
 
-                let ratThumbnail = document.createElement("img")
-                ratThumbnail.src = rat.thumbnail
-                ratThumbnail.className = "ratThumbnail"
-                ratThumbnail.onclick = () => {
-                    let newParams = getParams()
-                    newParams.set("rat", id)
-                    window.location.search = newParams.toString()
-                }
-                cardContent.appendChild(ratThumbnail)
+                loadRat(id, (rat) => {
+                    create("div", card, (cardContent) => {
+                        cardContent.className = "cardInner"
 
-                let ratTitle = document.createElement("h1")
-                ratTitle.innerText = rat.name
-                if(rat.passed != null) ratTitle.innerText += " †"
-                ratTitle.style.textAlign = "center"
-                ratTitle.style.color = "black"
-                cardContent.appendChild(ratTitle)
+                        create("img", cardContent, (thumbnail) => {
+                            thumbnail.src = rat.thumbnail
+                            thumbnail.className = "ratThumbnail"
+                            thumbnail.onclick = () => {
+                                let newParams = getParams()
+                                newParams.set("rat", id)
+                                window.location.search = newParams.toString()
+                            }
+                        })
 
+
+                        create("h1", cardContent, (e) => {
+                            e.innerText = rat.name
+                            if(rat.passed != null) e.innerText += " †"
+                            e.style.textAlign = "center"
+                            e.style.color = "black"
+                        })
+                    })
+                })
             })
+
+
         })
     } else {
         if(config.rats.includes(selectedRat)) {
@@ -79,7 +81,7 @@ get("/json/config.json", (json) => {
                     openGallery(getParams().get("gallery"))
                 }
 
-                document.getElementById("galleryRight").onclick = () => {
+                id("galleryRight").onclick = () => {
                     let nextIndex = rat.images.indexOf(getParams().get("gallery")) + 1;
                     if(nextIndex >= rat.images.length) nextIndex = 0
 
@@ -87,7 +89,7 @@ get("/json/config.json", (json) => {
                     openGallery(rat.images[nextIndex])
                 }
 
-                document.getElementById("galleryLeft").onclick = () => {
+                id("galleryLeft").onclick = () => {
                     let nextIndex = rat.images.indexOf(getParams().get("gallery")) - 1;
                     if(nextIndex < 0) nextIndex = rat.images.length - 1
 
@@ -95,30 +97,29 @@ get("/json/config.json", (json) => {
                     openGallery(rat.images[nextIndex])
                 }
 
-                let gallery = document.getElementById("selectedRatGallery")
                 rat.images.forEach((image) => {
                     console.log(image)
-                    let galleryThumb = document.createElement("img")
-                    galleryThumb.src = image
-                    galleryThumb.style.maxWidth = "15vw"
-                    galleryThumb.style.maxHeight = "15vh"
-                    galleryThumb.style.padding = "5px"
-                    galleryThumb.style.borderRadius = "10px 10px 10px 10px"
+                    create("img", id("selectedRatGallery"), (thumb) => {
+                        thumb.src = image
+                        thumb.style.maxWidth = "15vw"
+                        thumb.style.maxHeight = "15vh"
+                        thumb.style.padding = "5px"
+                        thumb.style.borderRadius = "10px 10px 10px 10px"
 
-                    galleryThumb.className = "pointer"
-                    galleryThumb.onclick = () => {
-                        openGallery(image)
-                    }
-                    gallery.appendChild(galleryThumb)
+                        thumb.className = "pointer"
+                        thumb.onclick = () => {
+                            openGallery(image)
+                        }
+                    })
                 })
-                document.getElementById("selectedRatName").innerText = rat.name
-                document.getElementById("selectedRatArea").style.display = "flex"
-                document.getElementById("selectedRatBigPic").src = rat.bigPic
-                document.getElementById("selectedRatBorn").innerText = rat.born
+                id("selectedRatName").innerText = rat.name
+                style("selectedRatArea").display = "flex"
+                id("selectedRatBigPic").src = rat.bigPic
+                id("selectedRatBorn").innerText = rat.born
                 if(rat.passed != null)
-                    document.getElementById("selectedRatRB").innerText = rat.passed
+                    id("selectedRatRB").innerText = rat.passed
                 else
-                    document.getElementById("selectedRatRBParent").style.display = "none"
+                    style("selectedRatRBParent").display = "none"
             })
         } else {
             document.getElementById("content").innerHTML =
